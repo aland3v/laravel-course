@@ -19,9 +19,8 @@ Route::get('/', 'ShopController@index')->name('index');
 Route::post('users', 'UserController@store')->name('users.store');
 Route::delete('users/{user}','UserController@destroy')->name('users.destroy');
 
-Route::get('/shop', function() {
-    return view('shop');
-})->name('shop');
+Route::get('/shop', 'ShopController@shop')->name('shop');
+Route::get('/shop/{product:slug}', 'ShopController@product')->name('product');
 
 Route::get('/cart', function() {
     return view('cart');
