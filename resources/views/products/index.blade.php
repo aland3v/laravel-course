@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     Productos
-                    <a href="{{ route('products.index') }}" class="btn btn-sm btn-primary float-right">Crear</a>
+                    <a href="{{ route('products.create') }}" class="btn btn-sm btn-primary float-right">Crear</a>
                 </div>
                 <div class="card-body">
                     @if (session('status'))
@@ -14,6 +14,40 @@
                             {{session('status')}}
                         </div>
                     @endif
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Titulo</th>
+                                <th colspan="2">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->title }}</td>
+                                    <td>
+                                        <a href="{{ route('products.edit', $product) }}" class="btn btn-primary btn-sm">
+                                            Editar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('products.destroy', $product) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input 
+                                                type="submit" 
+                                                value="Eliminar" 
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('¿Desea eliminar..?')"
+                                                >
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
