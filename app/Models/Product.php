@@ -29,4 +29,8 @@ class Product extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function getGetExcerptAttribute() {
+        return substr($this->title, 0, 20);
+    }
 }

@@ -159,13 +159,13 @@
                                 <div class="productinfo text-center">
                                     <img src="images/shop/product12.jpg" alt="" />
                                     <h2>$56</h2>
-                                    <p>{{ substr($product -> title, 0, 16) }}</p>
+                                    <p>{{ $product->get_excerpt }}</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                 </div>
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <h2>$56</h2>
-                                        <a href="{{ route('product', $product) }}"><p>{{ substr($product -> title, 0, 16) }}</p></a>
+                                        <a href="{{ route('product', $product) }}"><p>{{ $product->get_excerpt }}</p></a>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                 </div>
@@ -179,12 +179,10 @@
                         </div>
                     </div>
                     @endforeach
-                    <ul class="pagination">
-                        <li class="active"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">&raquo;</a></li>
-                    </ul>
+
+                    <!--pagination-->
+                    {{ $products->links("pagination::bootstrap-4") }}
+                    
                 </div><!--features_items-->
             </div>
         </div>

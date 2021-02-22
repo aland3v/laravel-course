@@ -59,3 +59,7 @@ Route::get('product-details', function() {
 Route::get('send-email', function() {
     return view('send-email');
 })->name('send-email');
+
+Route::resource('products','Backend\ProductController')
+    ->middleware('auth')
+    ->except('show');

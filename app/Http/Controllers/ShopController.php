@@ -13,7 +13,7 @@ class ShopController extends Controller
 
     public function shop() {
         return view('shop', [
-            'products' => Product::with('user')->latest()->paginate()
+            'products' => Product::with('user')->latest()->paginate(9)
         ]);
     }
 
