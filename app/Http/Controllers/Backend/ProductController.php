@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -35,9 +35,22 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        // Salvar
+        $product = Product::create([
+            'user_id' => auth()->user()->id
+        ] + $request->all()); // no es buena practica el all()
+
+        // image
+        if($request->file('file')) {
+            //guarda img en /storage/app/public/products
+            $product->image = $request->file('file')->store('products','public');
+            $product->save(); //almacena el path
+        }
+
+        // retornar
+        return back()->with('status', 'Creado con éxito')
     }
 
     /**

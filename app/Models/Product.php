@@ -12,6 +12,19 @@ class Product extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'description',
+        'iframe',
+        'image',
+        'user_id'
+    ];
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
