@@ -157,7 +157,15 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="images/shop/product12.jpg" alt="" />
+                                    @if ($product -> image)
+                                        <img src="{{ $product->get_image}}" alt="" />    
+                                    @elseif ($product -> iframe)
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            {!! $post->iframe !!} {{-- para imprimir html --}}
+                                        </div>                                        
+                                    @else
+                                        <img src="images/shop/product12.jpg" alt="" />
+                                    @endif                                    
                                     <h2>$56</h2>
                                     <p>{{ $product->get_excerpt }}</p>
                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

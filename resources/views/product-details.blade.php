@@ -147,7 +147,15 @@
 				<div class="product-details"><!--product-details-->
 					<div class="col-sm-5">
 						<div class="view-product">
-							<img src="/images/product-details/1.jpg" alt="" />
+							@if ($product -> image)
+								<img src="{{ $product->get_image}}" alt="" />    
+							@elseif ($product -> iframe)
+								<div class="embed-responsive embed-responsive-16by9">
+									{!! $post->iframe !!} {{-- para imprimir html --}}
+								</div>                                        
+							@else
+								<img src="/images/product-details/1.jpg" alt="" />
+							@endif         							
 							<h3>ZOOM</h3>
 						</div>
 						<div id="similar-product" class="carousel slide" data-ride="carousel">

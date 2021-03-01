@@ -63,6 +63,7 @@ Route::get('send-email', function() {
 Route::resource('products','Backend\ProductController')
     ->middleware('auth')
     ->except('show'); // todos los metodos excepto show
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

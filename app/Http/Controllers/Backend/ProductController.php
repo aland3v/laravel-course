@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 
+use Illuminate\Support\Facades\Storage;
+
 class ProductController extends Controller
 {
     /**
@@ -50,18 +52,7 @@ class ProductController extends Controller
         }
 
         // retornar
-        return back()->with('status', 'Creado con éxito')
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
+        return back()->with('status', 'Creado con éxito');
     }
 
     /**
@@ -72,7 +63,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -82,9 +73,17 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        //dd($request->all());
+        $product->update($request->all());
+        if($request->file('file')) {
+            // eliminar imagen
+            Storage::disk('public')->delete($product->image);
+            $product->image = $request->file('file')->store('products', 'public');
+            $product->save();
+        }
+        return back()->with('status', 'Actualizado con exito');
     }
 
     /**
@@ -95,6 +94,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        Storage::disk('public')->delete($product->image);
+        $product->delete();
+        return back()->with('status', 'Eliminado con exito');
     }
 }

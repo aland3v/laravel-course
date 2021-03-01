@@ -46,4 +46,10 @@ class Product extends Model
     public function getGetExcerptAttribute() {
         return substr($this->title, 0, 20);
     }
+
+    public function getGetImageAttribute() {
+        if($this->image){
+            return url("storage/$this->image");
+        }
+    }
 }
